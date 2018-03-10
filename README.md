@@ -35,7 +35,7 @@ generate_character(race = "human", class = "warrior")
 # generate character sheet for level 1 Vata Adept & 
 # save to the current working directory as a file "sample_character_sheet.txt"
 sample_character <- generate_character(race = "vata", class = "adept")
-save(file = "sample_character_sheet.txt", sample_character)
+capture.output(sample_character, file = "sample_character_sheet.txt")
 ```
 
 ## To do:
