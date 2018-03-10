@@ -1,0 +1,16 @@
+talent,Stat,greater_than
+artificer,Dexterity,2
+command,Communication,2
+contacts,Communication,2
+inspire,Communication,2
+intrigue,Communication,2
+lore,Intelligence,2
+observation,Perception,2
+purifying light,Willpower,2
+quick reflexes,Dexterity,2
+scouting,Dexterity,2
+thievery,Dexterity,2
+carousing,Communication,1
+carousing,Constitution,1
+linguistics,Intelligence,1
+medicine,Intelligence,1
