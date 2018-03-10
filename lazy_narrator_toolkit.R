@@ -74,13 +74,13 @@ character_stats <- function(class){
   }else{
     return("Class must be 'adept', 'expert' or 'warrior'")
   }
-
+  
   # assign bonuses, with primary class stats getting highst bonuses
   stats <- cbind(Stat = stat_importance$Stat, Bonus = bonuses)
-
+  
   # sort stats alphabetically 
   stats <- stats%>%
-      arrange(Stat)
+    arrange(Stat)
   
   # return dataframe with character's stats :)
   return(stats)
@@ -98,7 +98,7 @@ destiny_fate_calling <- function(){
   destiny <- sample(destiny_and_fate$Destiny, 1)
   fate <- sample(destiny_and_fate$Fate, 1)
   dominant <- sample(c("destiny","fate"), 1)
-
+  
   # dataframe with all of our traits
   character_traits <- data_frame(traits = c("calling", "destiny", 
                                             "fate", "dominant"),
@@ -131,11 +131,11 @@ racial_bonuses <- function(character_stats_input, race){
 # function to get two distinct benefits from a given benefit table
 get_benefits_from_table <- function(table){
   # get two benefits from the table
-  benefits <- sample(benefits_table$effect, 2)
+  benefits <- sample(table$effect, 2)
   
   # make sure there are two unique benefits
   if(benefits[1] == benefits[2]){
-    benefits <- sample(benefits_table$effect, 2)
+    benefits <- sample(table$effect, 2)
   }
   
   # return benefits
@@ -171,11 +171,11 @@ human_stats <- function(input_stats){
   defense <- 10 + input_stats$bonus[input_stats$Stat == "Dexterity"]
   
   # two random human benefits
-  benefits <- get_benefits_from_table(human_benefits_tablebenefits_table)
+  benefits <- get_benefits_from_table(human_benefits_table)
   
   # pull together all the racial benefits
   racial_benefits <- rbind(speed, defense, free_focus, free_stat, 
-             benefit_1 = benefits[1], benefit_2 = benefits[2])
+                           benefit_1 = benefits[1], benefit_2 = benefits[2])
   
   return(racial_benefits)
 }
@@ -242,7 +242,7 @@ rhydan_stats <- function(input_stats){
   
   return(racial_benefits)
 }
- 
+
 sea_folk_stats <- function(input_stats){
   # +1 to constituation
   free_stat <- "+1 constitution"
@@ -278,8 +278,8 @@ vata_stats <- function(input_stats){
   
   # make sure this character can use their talents
   talent_list <- c("Talent: Animism(novice)", "Talent: Healing(novice)", 
-                  "Talent: Meditative(novice)", "Talent: Psychic(novice)", 
-                  "Talent: Shaping(novice)", "Talent: Visionary(novice)")
+                   "Talent: Meditative(novice)", "Talent: Psychic(novice)", 
+                   "Talent: Shaping(novice)", "Talent: Visionary(novice)")
   # talents they can't use
   cant_use <- check_talents(input_stats)
   # remove from the list of talents
@@ -294,7 +294,7 @@ vata_stats <- function(input_stats){
   
   # defense = 10 + dex (plus sheild bonus)
   defense <- 10 + input_stats$bonus[input_stats$Stat == "Dexterity"]
-
+  
   # dark sight (20 yards ofr vata'an, 30 for vata'sha),
   # vata'sha are blinded for one round in sudden daylight
   racial_bonus <- "dark sight (20 yards for vata'an, 30 for vata'sha), vata'sha are blinded for one round in sudden daylight"
@@ -401,7 +401,7 @@ expert_bonuses <- function(input_stats){
   # starting bonuses
   expert_bonus_1 <- "once per round, add 1d6 to the damage of a sucessful attack if your dex > your target's"
   expert_bonus_2 <- "you are trained in Light Armor w/out need of the Armor Training talent"
-
+  
   # return all our bonuses
   return(rbind(health, free_weapon_group_1, free_weapon_group_2, 
                free_weapon_group_3, free_weapon_group_4, free_talent,
@@ -410,7 +410,7 @@ expert_bonuses <- function(input_stats){
 
 # warrior bonuses are different for rhydan
 warrior_bonuses <- function(input_stats, race){
-
+  
   # starting health
   health <- 30 + input_stats$bonus[input_stats$Stat == "Constitution"] + sample(6,1)
   
@@ -419,7 +419,7 @@ warrior_bonuses <- function(input_stats, race){
   
   # randomly pick three other weapons from starting list
   starting_weapons <- tolower(c("Axes", "Bludgeons", "Bows", "Heavy Blades",
-  "Light Blades", "Polearms", "Staves"))
+                                "Light Blades", "Polearms", "Staves"))
   starting_weapons_sample <- sample(starting_weapons, 3)
   
   free_weapon_group_2 <- paste("Weapons group:",starting_weapons_sample[1])
@@ -448,7 +448,7 @@ warrior_bonuses <- function(input_stats, race){
     
     return(rbind(health, free_talent_1, free_talent_2, free_talent_3))
   }
- 
+  
   ## remove styles character can't actually learn
   # no archery if they don't know bows
   if(!"bows" %in% starting_weapons_sample){
@@ -456,7 +456,7 @@ warrior_bonuses <- function(input_stats, race){
   }
   # no two-handed if they don't know the wepons or have the strength
   if(!sum(c("axes", "bludgeons", "heavy blades", "polearms") %in% starting_weapons_sample &&
-         !(input_stats$bonus[input_stats$Stat == "Strength"] > 2))){
+          !(input_stats$bonus[input_stats$Stat == "Strength"] > 2))){
     style_talents <- style_talents[style_talents != "Two-Handed Style"] 
   }
   # no thrown weapons if you don't know a throwable wepon
@@ -475,7 +475,7 @@ warrior_bonuses <- function(input_stats, race){
   if(!(input_stats$bonus[input_stats$Stat == "Strength"] > 1)){
     style_talents <- style_talents[style_talents != "Weapon and Shield Style"] 
   }
-
+  
   # get non-rhydan talents (may pick 2 styles if avalible)
   if(sample(3, 1) == 1){
     free_talent_1 <- paste("Talent:", sample(style_talents, 1), "(novice)")
