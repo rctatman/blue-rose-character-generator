@@ -578,8 +578,14 @@ generate_character <- function(race, class){
 # one fully random character, coming right up! :)
 random_race <- pick_race()
 random_class <- pick_class()
-generate_character(race = random_race, class = random_class)
+sample_character <- generate_character(race = random_race, class = random_class)
 
-# save a file with a human expert
-char <- generate_character(race = "human", class = "expert")
-capture.output(char, file = "sample_character_sheet.txt")
+# print character sheet
+sample_character
+
+# save character sheet
+capture.output(sample_character, file = "sample_character_sheet.txt")
+
+## create & save a file with a human expert
+# char <- generate_character(race = "human", class = "expert")
+# capture.output(char, file = "sample_character_sheet.txt")
