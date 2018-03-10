@@ -10,7 +10,12 @@ destiny_and_fate <- read_csv("destiny_and_fate.csv")
 roll_to_bonus <- read_csv("roll_to_bonus.csv")
 stats_by_class <- read_csv("stats_by_class.csv")
 talent_requirements <- read_csv("talent_requirements.csv")
-
+# files with racial benefits tables
+human_benefits_table <- read.csv("racial_benefits_tables/human.csv")
+night_person_benefits_table <- read.csv("racial_benefits_tables/night_person.csv")
+rhydan_benefits_table <- read.csv("racial_benefits_tables/rhydan.csv")
+sea_folk_benefits_table <- read.csv("racial_benefits_tables/sea-folk.csv")
+vata_benefits_table <- read.csv("racial_benefits_tables/vata.csv")
 
 ### rolling a character ###
 
@@ -166,8 +171,7 @@ human_stats <- function(input_stats){
   defense <- 10 + input_stats$bonus[input_stats$Stat == "Dexterity"]
   
   # two random human benefits
-  benefits_table <- read.csv("racial_benefits_tables/human.csv")
-  benefits <- get_benefits_from_table(benefits_table)
+  benefits <- get_benefits_from_table(human_benefits_tablebenefits_table)
   
   # pull together all the racial benefits
   racial_benefits <- rbind(speed, defense, free_focus, free_stat, 
@@ -196,8 +200,7 @@ night_people_stats <- function(input_stats){
   defense <- 10 + input_stats$bonus[input_stats$Stat == "Dexterity"]
   
   # roll twice on benfits table
-  benefits_table <- read.csv("racial_benefits_tables/night_person.csv")
-  benefits <- get_benefits_from_table(benefits_table)
+  benefits <- get_benefits_from_table(night_person_benefits_table)
   
   # pull together all the racial benefits
   racial_benefits <- rbind(speed, defense, racial_bonus, 
@@ -230,8 +233,7 @@ rhydan_stats <- function(input_stats){
   free_talent <- "Talent: Phychic(novice)"
   
   # roll twice on benefits table
-  benefits_table <- read.csv("racial_benefits_tables/rhydan.csv")
-  benefits <- get_benefits_from_table(benefits_table)
+  benefits <- get_benefits_from_table(rhydan_benefits_table)
   
   # pull together all the racial benefits
   racial_benefits <- rbind(speed, defense, free_focus, free_talent, 
@@ -259,8 +261,7 @@ sea_folk_stats <- function(input_stats){
   racial_bonus_2 <- paste("can hold your breath", breath_bonus,"rounds")
   
   # roll twice on benefits table
-  benefits_table <- read.csv("racial_benefits_tables/sea-folk.csv")
-  benefits <- get_benefits_from_table(benefits_table)
+  benefits <- get_benefits_from_table(sea_folk_benefits_table)
   
   # pull together all the racial benefits
   racial_benefits <- rbind(speed, defense, racial_bonus, 
@@ -303,8 +304,7 @@ vata_stats <- function(input_stats){
   racial_bonus_2 <- "constitution ability is considered 2 points higher for any of the recovery formulas"
   
   # roll twice on benefits table
-  benefits_table <- read.csv("racial_benefits_tables/vata.csv")
-  benefits <- get_benefits_from_table(benefits_table)
+  benefits <- get_benefits_from_table(vata_benefits_table)
   
   # pull together all the racial benefits
   racial_benefits <- rbind(speed, defense, racial_bonus, 
@@ -580,5 +580,6 @@ random_race <- pick_race()
 random_class <- pick_class()
 generate_character(race = random_race, class = random_class)
 
-generate_character("vata", "adept")
-
+# save a file with a human expert
+char <- generate_character(race = "human", class = "expert")
+capture.output(char, file = "sample_character_sheet.txt")
