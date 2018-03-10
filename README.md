@@ -1,12 +1,13 @@
-A simple R script &amp; files to automatically generate level 1 Blue Rose characters in a somewhat logical way, because I'm a lazy, lazy ~~GM~~ Narrator.
+An R script &amp; files to automatically generate level 1 [Blue Rose](https://greenroninstore.com/products/blue-rose-the-age-rpg-of-romantic-fantasy) characters in a somewhat logical way, because I'm a lazy, lazy ~~GM~~ Narrator.
 
 It ain't pretty, but it works.
 
 ## To use:
 
-* Clone or download the repo. 
-* If using R Studio, open the blue-rose.Rproj file as a project.
-* Run the entire lazy_narrator_toolkit.R file
+### R Studio method
+* Download the zipped file with the repo in it (use the "Clone or download" button and choose "Download ZIP" from the drop down. 
+* Open the blue-rose.Rproj file as a project.
+* Run the lazy_narrator_toolkit.R file as source.
 * You can then generate a level one character like so:
 
 ```R
@@ -38,6 +39,12 @@ sample_character <- generate_character(race = "vata", class = "adept")
 capture.output(sample_character, file = "sample_character_sheet.txt")
 ```
 
+### Command line method
+* Download or fork repo.
+* Open the shell & go to the location of your files. 
+* Run`Rscript lazy_narrator_toolkit.R`
+* A random character will be generated & saved in your current directory as "sample_character_sheet.txt". Running the script again will overwrite this file.
+
 ## To do:
 
 * Auto-generate background if required.
@@ -47,7 +54,7 @@ capture.output(sample_character, file = "sample_character_sheet.txt")
 * Add a name generator (based on race/background?)
 * Interleave focuses in basic stats.
 
-## Known bugs
+## Known bugs:
 
-* Sometimes generates `Talent: Natural weapons` for non-Rhydan characters. Still trying to hunt this one down.
+* ~~Sometimes generates `Talent: Natural weapons` for non-Rhydan characters. Still trying to hunt this one down.~~ (I think I've got this one.)
 * Occasionally generates an `NA` talent if the character doesn't fulfill the stat requirements for any of their racial/class starting talents.
