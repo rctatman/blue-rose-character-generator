@@ -440,6 +440,8 @@ warrior_bonuses <- function(input_stats, race){
   non_style_talents <- non_style_talents[!str_detect(tolower(non_style_talents), 
                                                      cant_use)]
   
+  # everybody gets armor training
+  free_talent_3 <- "Talent: Armor Training(novice)"
   
   # get rhydan warrior stats (slightly different)
   if(race == "rhydan"){
@@ -487,9 +489,6 @@ warrior_bonuses <- function(input_stats, race){
     free_talent_1 <- paste("Talent:", style_talents_sample[1], "(novice)")
     free_talent_2 <- paste("Talent:", style_talents_sample[2], "(novice)")
   }
-  
-  # everybody gets armor training
-  free_talent_3 <- "Talent: Armor Training(novice)"
   
   # and return all our bonuses
   return(rbind(health, free_weapon_group_1, free_weapon_group_2,
